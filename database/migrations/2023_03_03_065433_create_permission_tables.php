@@ -50,6 +50,7 @@ class CreatePermissionTables extends Migration
             }
         });
 
+<<<<<<< HEAD
         Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames, $columnNames, $teams) {
             $table->unsignedBigInteger(PermissionRegistrar::$pivotPermission);
 
@@ -71,9 +72,35 @@ class CreatePermissionTables extends Migration
                 $table->primary([PermissionRegistrar::$pivotPermission, $columnNames['model_morph_key'], 'model_type'],
                     'model_has_permissions_permission_model_type_primary');
             }
+=======
+        // Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames, $columnNames, $teams) {
+        //     $table->unsignedBigInteger(PermissionRegistrar::$pivotPermission);
+
+        //     $table->string('model_type');
+        //     $table->unsignedBigInteger($columnNames['model_morph_key']);
+        //     $table->index([$columnNames['model_morph_key'], 'model_type'], 'model_has_permissions_model_id_model_type_index');
+
+        //     $table->foreign(PermissionRegistrar::$pivotPermission)
+        //         ->references('id') // permission id
+        //         ->on($tableNames['permissions'])
+        //         ->onDelete('cascade');
+        //     $table->index(PermissionRegistrar::$pivotPermission);
+
+        //     // if ($teams) {
+        //     //     $table->id($columnNames['team_foreign_key']);
+        //     //     $table->index($columnNames['team_foreign_key'], 'model_has_permissions_team_foreign_key_index');
+
+        //     //     $table->primary([$columnNames['team_foreign_key'], PermissionRegistrar::$pivotPermission, $columnNames['model_morph_key'], 'model_type'],
+        //     //         'model_has_permissions_permission_model_type_primary');
+        //     // } else {
+        //     //     $table->primary([PermissionRegistrar::$pivotPermission, $columnNames['model_morph_key'], 'model_type'],
+        //     //         'model_has_permissions_permission_model_type_primary');
+        //     // }
+>>>>>>> b5181f1f2d01b4af06f465efd220e6fb2d9dd206
 
         });
 
+<<<<<<< HEAD
         Schema::create($tableNames['model_has_roles'], function (Blueprint $table) use ($tableNames, $columnNames, $teams) {
             $table->unsignedBigInteger(PermissionRegistrar::$pivotRole);
 
@@ -88,6 +115,23 @@ class CreatePermissionTables extends Migration
             if ($teams) {
                 $table->unsignedBigInteger($columnNames['team_foreign_key']);
                 $table->index($columnNames['team_foreign_key'], 'model_has_roles_team_foreign_key_index');
+=======
+        // Schema::create($tableNames['model_has_roles'], function (Blueprint $table) use ($tableNames, $columnNames, $teams) {
+        //     $table->unsignedBigInteger(PermissionRegistrar::$pivotRole);
+
+        //     $table->string('model_type');
+        //     $table->unsignedBigInteger($columnNames['model_morph_key']);
+        //     $table->index([$columnNames['model_morph_key'], 'model_type'], 'model_has_roles_model_id_model_type_index');
+
+        //     $table->foreign(PermissionRegistrar::$pivotRole)
+        //         ->references('id') // role id
+        //         ->on($tableNames['roles'])
+        //         ->onDelete('cascade');
+        //     $table->index(PermissionRegistrar::$pivotRole);
+        //     // if ($teams) {
+        //     //     $table->id($columnNames['team_foreign_key']);
+        //     //     $table->index($columnNames['team_foreign_key'], 'model_has_roles_team_foreign_key_index');
+>>>>>>> b5181f1f2d01b4af06f465efd220e6fb2d9dd206
 
                 $table->primary([$columnNames['team_foreign_key'], PermissionRegistrar::$pivotRole, $columnNames['model_morph_key'], 'model_type'],
                     'model_has_roles_role_model_type_primary');
@@ -97,26 +141,34 @@ class CreatePermissionTables extends Migration
             }
         });
 
+<<<<<<< HEAD
         Schema::create($tableNames['role_has_permissions'], function (Blueprint $table) use ($tableNames) {
             $table->unsignedBigInteger(PermissionRegistrar::$pivotPermission);
             $table->unsignedBigInteger(PermissionRegistrar::$pivotRole);
+=======
+        // Schema::create($tableNames['role_has_permissions'], function (Blueprint $table) use ($tableNames) {
+        //     $table->unsignedBigInteger(PermissionRegistrar::$pivotPermission);
+        //     $table->unsignedBigInteger(PermissionRegistrar::$pivotRole);
+>>>>>>> b5181f1f2d01b4af06f465efd220e6fb2d9dd206
 
-            $table->foreign(PermissionRegistrar::$pivotPermission)
-                ->references('id') // permission id
-                ->on($tableNames['permissions'])
-                ->onDelete('cascade');
+        //     $table->foreign(PermissionRegistrar::$pivotPermission)
+        //         ->references('id') // permission id
+        //         ->on($tableNames['permissions'])
+        //         ->onDelete('cascade');
+        //     $table->index(PermissionRegistrar::$pivotPermission);
 
-            $table->foreign(PermissionRegistrar::$pivotRole)
-                ->references('id') // role id
-                ->on($tableNames['roles'])
-                ->onDelete('cascade');
+        //     $table->foreign(PermissionRegistrar::$pivotRole)
+        //         ->references('id') // role id
+        //         ->on($tableNames['roles'])
+        //         ->onDelete('cascade');
+        //     $table->index(PermissionRegistrar::$pivotRole);
 
-            $table->primary([PermissionRegistrar::$pivotPermission, PermissionRegistrar::$pivotRole], 'role_has_permissions_permission_id_role_id_primary');
-        });
+        //     $table->primary([PermissionRegistrar::$pivotPermission, PermissionRegistrar::$pivotRole], 'role_has_permissions_permission_id_role_id_primary');
+        // });
 
-        app('cache')
-            ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
-            ->forget(config('permission.cache.key'));
+        // app('cache')
+        //     ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
+        //     ->forget(config('permission.cache.key'));
     }
 
     /**
