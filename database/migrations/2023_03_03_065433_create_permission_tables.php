@@ -101,18 +101,20 @@ class CreatePermissionTables extends Migration
         });
 
         Schema::create($tableNames['role_has_permissions'], function (Blueprint $table) use ($tableNames) {
-            $table->id(PermissionRegistrar::$pivotPermission);
-            $table->id(PermissionRegistrar::$pivotRole);
+            $table->unsignedBigInteger(PermissionRegistrar::$pivotPermission);
+            $table->unsignedBigInteger(PermissionRegistrar::$pivotRole);
 
             $table->foreign(PermissionRegistrar::$pivotPermission)
                 ->references('id') // permission id
                 ->on($tableNames['permissions'])
                 ->onDelete('cascade');
+            $table->index(PermissionRegistrar::$pivotPermission);
 
             $table->foreign(PermissionRegistrar::$pivotRole)
                 ->references('id') // role id
                 ->on($tableNames['roles'])
                 ->onDelete('cascade');
+            $table->index(PermissionRegistrar::$pivotRole);
 
             $table->primary([PermissionRegistrar::$pivotPermission, PermissionRegistrar::$pivotRole], 'role_has_permissions_permission_id_role_id_primary');
         });
